@@ -637,6 +637,12 @@ ifeq ($(USE_WIO_LTE),1)
   SOURCES += targets/stm32/stm32_ws2812b_driver.c
 endif
 
+ifeq ($(USE_NFC),1)
+  DEFINES += -DUSE_NTAG215
+  INCLUDE += -I$(ROOT)/libs/ntag215
+  WRAPPERSOURCES += libs/ntag215/jswrap_ntag215.c
+endif
+
 ifeq ($(USE_TENSORFLOW),1) 
 include make/misc/tensorflow.make
 endif

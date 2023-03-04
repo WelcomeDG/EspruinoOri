@@ -35,4 +35,20 @@ jobs:
         source ./scripts/provision.sh  ${{ matrix.board }}
         make
         ./scripts/ci_upload.sh
+    - name: Upload ${{ matrix.board }} build artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: ${{ matrix.board }}
+        path: |
+          *.bin
+          *.hex
+          *.tgz
+          *.zip
+    
+# Disable doc building for now 
+#  docs:
+#    runs-on: ubuntu-20.04      
+#    steps:
+#    - name: makedocs
+#      run: make docs
 

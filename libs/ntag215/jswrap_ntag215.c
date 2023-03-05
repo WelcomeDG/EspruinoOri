@@ -448,18 +448,6 @@ int jswrap_ntag215_restartNfc(){
   return jswrap_ntag215_startNfc();
 }
 
-/*JSON{
-  "type" : "staticmethod",
-  "class" : "NTAG215",
-  "name" : "setTagBuffer",
-  "generate" : "jswrap_ntag215_setTagBuffer",
-  "ifdef" : "USE_NTAG215",
-  "params" : [
-    ["v","JsVar","A UInt8Array at least 572 bytes long."]
-  ]
-}*/
-void jswrap_ntag215_setTagBuffer(JsVar *v){
-
 static nfc3d_amiibo_keys amiiboKeys;
 /*JSON{
   "type" : "staticmethod",

@@ -641,6 +641,7 @@ ifeq ($(USE_NFC),1)
   ifeq ($(USE_NTAG215),1)
     DEFINES += -DUSE_NTAG215
     INCLUDE += -I$(ROOT)/libs/ntag215
+    INCLUDE += -I$(ROOT)/libs/amiitool
     WRAPPERSOURCES += libs/ntag215/jswrap_ntag215.c
   endif
 endif

@@ -3,6 +3,7 @@
 #include "jsinteractive.h"
 #include "hal_t2t/hal_nfc_t2t.h"
 #include "bluetooth_utils.c"
+#include "amiibo.c"
 
 /*JSON{
   "type" : "class",

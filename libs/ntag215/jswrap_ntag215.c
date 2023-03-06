@@ -496,7 +496,8 @@ JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
   "ifdef" : "USE_NTAG215",
   "params" : [
     ["v","JsVar","A UInt8Array at least 572 bytes long."]
-  ]
+  ],
+  "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
   uint8_t modified[NFC3D_AMIIBO_SIZE];
@@ -504,7 +505,7 @@ JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
   nfc3d_amiibo_pack(&amiiboKeys, original, modified);
-  
+
   return jsvNewArrayFromBytes(modified, sizeof(modified));
 }
 #endif

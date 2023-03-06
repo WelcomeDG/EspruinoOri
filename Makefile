@@ -644,6 +644,10 @@ ifeq ($(USE_NFC),1)
     INCLUDE += -I$(ROOT)/libs/amiitool
     INCLUDE += -I$(ROOT)/libs/amiitool/include
     WRAPPERSOURCES += libs/ntag215/jswrap_ntag215.c
+	SOURCES += \
+	libs/amiitool/drbg.c \
+	libs/amiitool/keygen.c \
+	libs/amiitool/util.c
   endif
 endif
 

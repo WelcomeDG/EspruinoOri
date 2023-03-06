@@ -462,4 +462,26 @@ static nfc3d_amiibo_keys amiiboKeys;
 void jswrap_ntag215_setAmiiboKeys(JsVar *v){
   memcpy(&amiiboKeys, v, sizeof(amiiboKeys));
 }
+
+/*JSON{
+  "type" : "staticmethod",
+  "class" : "NTAG215",
+  "name" : "unpackAmiibo",
+  "generate" : "jswrap_ntag215_unpackAmiibo",
+  "ifdef" : "USE_NTAG215",
+  "params" : [
+    ["v","JsVar","A UInt8Array at least 572 bytes long."]
+  ]
+}*/
+JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
+ 	uint8_t modified[NFC3D_AMIIBO_SIZE];
+//   size_t len=0;
+//   char *original = jsvGetDataPointer(v, &len);
+//   //bool result = nfc3d_amiibo_unpack(&amiiboKeys, original, modified);
+  
+//   //jsiConsolePrintf("result: %d", result);
+//   //jsiConsolePrintf("result: %d", modified[0]);
+//   //jsiConsolePrintf("result: %d", sizeof(modified));
+  return jsvNewArrayFromBytes(modified, sizeof(modified));
+}
 #endif

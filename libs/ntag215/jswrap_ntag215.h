@@ -12,4 +12,5 @@ void jswrap_ntag215_stopNfc();
 int jswrap_ntag215_startNfc(void);
 int jswrap_ntag215_restartNfc(void);
 void jswrap_ntag215_setAmiiboKeys(JsVar *);
+JsVar *jswrap_ntag215_unpackAmiibo(JsVar *);
 #endif

@@ -483,8 +483,8 @@ JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
   jsiConsolePrintf("result: %d", result);
   jsiConsolePrintf("result: %d", modified[0]);
   jsiConsolePrintf("result: %d", sizeof(modified));
-  jsiConsolePrintf("result: %d", amiiboKeys[0]);
-  jsiConsolePrintf("result: %d", amiiboKeys[1]);
+  jsiConsolePrintf("result: %d", amiiboKeys.data.typeString);
+  jsiConsolePrintf("result: %d", amiiboKeys.tag.typeString);
   jsiConsolePrintf("result: %d", sizeof(amiiboKeys));
   return jsvNewArrayFromBytes(modified, sizeof(modified));
 }

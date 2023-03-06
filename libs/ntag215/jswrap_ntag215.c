@@ -477,18 +477,34 @@ void jswrap_ntag215_setAmiiboKeys(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
- 	uint8_t modified[NFC3D_AMIIBO_SIZE];
+  uint8_t modified[NFC3D_AMIIBO_SIZE];
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
-  bool result = nfc3d_amiibo_unpack(&amiiboKeys, original, modified);
+  if (nfc3d_amiibo_unpack(&amiiboKeys, original, modified)){
+      return jsvNewArrayFromBytes(modified, sizeof(modified));
+  } else{
+      return jsvNewEmptyArray();
+  }
+}
+
+/*JSON{
+  "type" : "staticmethod",
+  "class" : "NTAG215",
+  "name" : "packAmiibo",
+  "generate" : "jswrap_ntag215_packAmiibo",
+  "ifdef" : "USE_NTAG215",
+  "params" : [
+    ["v","JsVar","A UInt8Array at least 572 bytes long."]
+  ]
+}*/
+JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
+  uint8_t modified[NFC3D_AMIIBO_SIZE];
+  size_t len=0;
+  char *pointer = jsvGetDataPointer(v, &len);
+  unsigned char *original = &pointer[0];
+  nfc3d_amiibo_pack(&amiiboKeys, original, modified);
   
-  jsiConsolePrintf("result: %d", result);
-  jsiConsolePrintf("result: %d", modified[0]);
-  jsiConsolePrintf("result: %d", sizeof(modified));
-  jsiConsolePrintf("result: %s", amiiboKeys.data.typeString);
-  jsiConsolePrintf("result: %s", amiiboKeys.tag.typeString);
-  jsiConsolePrintf("result: %d", sizeof(amiiboKeys));
   return jsvNewArrayFromBytes(modified, sizeof(modified));
 }
 #endif

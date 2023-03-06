@@ -476,7 +476,8 @@ void jswrap_ntag215_setAmiiboKeys(JsVar *v){
 JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
  	uint8_t modified[NFC3D_AMIIBO_SIZE];
   size_t len=0;
-  unsigned char *original = jsvGetDataPointer(v, &len);
+  char *pointer = jsvGetDataPointer(v, &len);
+  unsigned char *original = &pointer[0];
   bool result = nfc3d_amiibo_unpack(&amiiboKeys, original, modified);
   
   jsiConsolePrintf("result: %d", result);

@@ -473,7 +473,8 @@ void jswrap_ntag215_setAmiiboKeys(JsVar *v){
   "ifdef" : "USE_NTAG215",
   "params" : [
     ["v","JsVar","A UInt8Array at least 572 bytes long."]
-  ]
+  ],
+  "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
  	uint8_t modified[NFC3D_AMIIBO_SIZE];

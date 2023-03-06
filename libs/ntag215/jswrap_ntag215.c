@@ -460,6 +460,7 @@ static nfc3d_amiibo_keys amiiboKeys;
   ]
 }*/
 void jswrap_ntag215_setAmiiboKeys(JsVar *v){
+  size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   memcpy(&amiiboKeys, pointer, sizeof(amiiboKeys));
 }

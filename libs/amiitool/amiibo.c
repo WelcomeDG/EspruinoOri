@@ -171,7 +171,7 @@ void nfc3d_amiibo_generate_new_serial(const uint8_t *src)
 	/*Generate UID*/
 	uint8_t temp;
 	uint8_t *UID;
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(NULL));
 	for (int i = 1; i < 8; i++)
 	{
 		temp = rand() % 256;

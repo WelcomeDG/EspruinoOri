@@ -524,7 +524,7 @@ JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
 }*/
 JsVar *jswrap_ntag215_updateAmiiboUID(JsVar *v){
   uint8_t modified[NTAG215_SIZE] = {0};
-  uint8_t medium[NFC3D_AMIIBO_SIZE];
+  uint8_t medium[NTAG215_SIZE] = {0};
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];

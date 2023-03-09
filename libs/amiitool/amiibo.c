@@ -92,7 +92,7 @@ bool nfc3d_amiibo_unpack(const nfc3d_amiibo_keys * amiiboKeys, const uint8_t * t
 	mbedtls_md_hmac( mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), dataKeys.hmacKey, sizeof(dataKeys.hmacKey),	
 			 plain + 0x029, 0x1DF, plain + HMAC_POS_DATA );
 
-	for (i = 520; i < 540; i++){
+	for (int i = 520; i < 540; i++){
         plain[i] = tag[i];
     }
 
@@ -136,7 +136,7 @@ void nfc3d_amiibo_pack(const nfc3d_amiibo_keys * amiiboKeys, const uint8_t * pla
 	// Convert back to hardware
 	nfc3d_amiibo_internal_to_tag(cipher, tag);
 
-	for (i = 520; i < 540; i++){
+	for (int i = 520; i < 540; i++){
         tag[i] = plain[i];
     }
 }

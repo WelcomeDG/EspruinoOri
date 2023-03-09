@@ -10,7 +10,6 @@
 #include "mbedtls/md.h"
 #include "mbedtls/aes.h"
 #include <errno.h>
-#include <endian.h>
 
 
 #define HMAC_POS_DATA 0x008
@@ -164,8 +163,10 @@ void nfc3d_amiibo_generate_new_serial(const uint8_t *src)
 	uint16_t *cfg_nb_wr = (uint16_t *)(src + 0xB4);
 
 	/* increment write counters */
-	*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
-	*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+	//*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
+	//*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+	*ami_nb_wr = *ami_nb_wr + 1;
+	*cfg_nb_wr = *cfg_nb_wr + 1;
 
 	/*Generate UID*/
 	uint8_t temp;
@@ -191,8 +192,10 @@ void nfc3d_amiibo_copy_app_data(const uint8_t * src, uint8_t * dst) {
 	uint16_t *cfg_nb_wr = (uint16_t*)(dst + 0xB4);
 
 	/* increment write counters */
-	*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
-	*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+	//*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
+	//*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+	*ami_nb_wr = *ami_nb_wr + 1;
+	*cfg_nb_wr = *cfg_nb_wr + 1;
 
 	/* copy flags */
 	dst[0x2C] = src[0x2C];

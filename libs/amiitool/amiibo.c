@@ -10,7 +10,7 @@
 #include "mbedtls/md.h"
 #include "mbedtls/aes.h"
 #include <errno.h>
-//#include "portable_endian.h"
+#include "portable_endian.h"
 
 
 #define HMAC_POS_DATA 0x008
@@ -157,23 +157,50 @@ bool nfc3d_amiibo_load_keys(nfc3d_amiibo_keys * amiiboKeys, const char * path) {
 	return true;
 }
 
+void nfc3d_amiibo_generate_new_serial(const uint8_t *src)
+{
 
-// void nfc3d_amiibo_copy_app_data(const uint8_t * src, uint8_t * dst) {
+	uint16_t *ami_nb_wr = (uint16_t *)(src + 0x29);
+	uint16_t *cfg_nb_wr = (uint16_t *)(src + 0xB4);
 
-	// uint16_t *ami_nb_wr = (uint16_t*)(dst + 0x29);
-	// uint16_t *cfg_nb_wr = (uint16_t*)(dst + 0xB4);
+	/* increment write counters */
+	*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
+	*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
 
-	// /* increment write counters */
-	// *ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
-	// *cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+	/*Generate UID*/
+	uint8_t temp;
+	uint8_t *UID;
+	srand((unsigned)time(NULL));
+	for (int i = 1; i < 8; i++)
+	{
+		temp = rand() % 256;
+		UID = (uint8_t *)(src + i);
+		*UID = temp;
+	}
 
-	// /* copy flags */
-	// dst[0x2C] = src[0x2C];
-	// /* copy programID */
-	// memcpy(dst + 0xAC, src + 0xAC, 8);
-	// /* copy AppID */
-	// memcpy(dst + 0xB6, src + 0xB6, 4);
-	// /* copy AppData */
-	// memcpy(dst + 0xDC, src + 0xDC, 216);
-// }
+	/*Calculate BCC bytes*/
+	uint8_t BCC1, BCC2;
+	UID = src;
+	UID[3] = 0x88 ^ UID[0] ^ UID[1] ^ UID[2];
+	UID[8] = UID[4] ^ UID[5] ^ UID[6] ^ UID[7];
+}
+
+void nfc3d_amiibo_copy_app_data(const uint8_t * src, uint8_t * dst) {
+
+	uint16_t *ami_nb_wr = (uint16_t*)(dst + 0x29);
+	uint16_t *cfg_nb_wr = (uint16_t*)(dst + 0xB4);
+
+	/* increment write counters */
+	*ami_nb_wr = htobe16(be16toh(*ami_nb_wr) + 1);
+	*cfg_nb_wr = htobe16(be16toh(*cfg_nb_wr) + 1);
+
+	/* copy flags */
+	dst[0x2C] = src[0x2C];
+	/* copy programID */
+	memcpy(dst + 0xAC, src + 0xAC, 8);
+	/* copy AppID */
+	memcpy(dst + 0xB6, src + 0xB6, 4);
+	/* copy AppData */
+	memcpy(dst + 0xDC, src + 0xDC, 216);
+}
 

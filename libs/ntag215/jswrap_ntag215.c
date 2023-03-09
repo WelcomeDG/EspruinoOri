@@ -477,7 +477,7 @@ void jswrap_ntag215_setAmiiboKeys(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
-  uint8_t modified[NFC3D_AMIIBO_SIZE];
+  uint8_t modified[NTAG215_SIZE];
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
@@ -500,12 +500,39 @@ JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
-  uint8_t modified[NFC3D_AMIIBO_SIZE];
+  uint8_t modified[NTAG215_SIZE];
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
   nfc3d_amiibo_pack(&amiiboKeys, original, modified);
 
   return jsvNewArrayFromBytes(modified, sizeof(modified));
+}
+
+/*JSON{
+  "type" : "staticmethod",
+  "class" : "NTAG215",
+  "name" : "updateAmiiboUID",
+  "generate" : "jswrap_ntag215_updateAmiiboUID",
+  "ifdef" : "USE_NTAG215",
+  "params" : [
+    ["v","JsVar","A UInt8Array at least 572 bytes long."]
+  ],
+  "return" : ["JsVar", "The return value."]
+}*/
+JsVar *jswrap_ntag215_updateAmiiboUID(JsVar *v){
+  uint8_t modified[NTAG215_SIZE];
+  uint8_t medium[NFC3D_AMIIBO_SIZE];
+  size_t len=0;
+  char *pointer = jsvGetDataPointer(v, &len);
+  unsigned char *original = &pointer[0];
+
+  if (nfc3d_amiibo_unpack(&amiiboKeys, original, medium)){
+      nfc3d_amiibo_generate_new_serial(medium);
+      nfc3d_amiibo_pack(&amiiboKeys, medium, modified);
+      return jsvNewArrayFromBytes(modified, sizeof(modified));
+  } else{
+      return jsvNewEmptyArray();
+  }
 }
 #endif

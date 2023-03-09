@@ -479,7 +479,7 @@ void jswrap_ntag215_setAmiiboKeys(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
-  uint8_t modified[NTAG215_SIZE];
+  uint8_t modified[NTAG215_SIZE] = {0};
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
@@ -502,7 +502,7 @@ JsVar *jswrap_ntag215_unpackAmiibo(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
-  uint8_t modified[NTAG215_SIZE];
+  uint8_t modified[NTAG215_SIZE] = {0};
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);
   unsigned char *original = &pointer[0];
@@ -523,7 +523,7 @@ JsVar *jswrap_ntag215_packAmiibo(JsVar *v){
   "return" : ["JsVar", "The return value."]
 }*/
 JsVar *jswrap_ntag215_updateAmiiboUID(JsVar *v){
-  uint8_t modified[NTAG215_SIZE];
+  uint8_t modified[NTAG215_SIZE] = {0};
   uint8_t medium[NFC3D_AMIIBO_SIZE];
   size_t len=0;
   char *pointer = jsvGetDataPointer(v, &len);

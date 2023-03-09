@@ -92,6 +92,10 @@ bool nfc3d_amiibo_unpack(const nfc3d_amiibo_keys * amiiboKeys, const uint8_t * t
 	mbedtls_md_hmac( mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), dataKeys.hmacKey, sizeof(dataKeys.hmacKey),	
 			 plain + 0x029, 0x1DF, plain + HMAC_POS_DATA );
 
+	for (i = 520; i < 540; i++){
+        plain[i] = tag[i];
+    }
+
 	return
 			memcmp(plain + HMAC_POS_DATA, internal + HMAC_POS_DATA, 32) == 0 &&
 			memcmp(plain + HMAC_POS_TAG, internal + HMAC_POS_TAG, 32) == 0;
@@ -131,6 +135,10 @@ void nfc3d_amiibo_pack(const nfc3d_amiibo_keys * amiiboKeys, const uint8_t * pla
 
 	// Convert back to hardware
 	nfc3d_amiibo_internal_to_tag(cipher, tag);
+
+	for (i = 520; i < 540; i++){
+        tag[i] = plain[i];
+    }
 }
 
 bool nfc3d_amiibo_load_keys(nfc3d_amiibo_keys * amiiboKeys, const char * path) {
@@ -175,15 +183,15 @@ void nfc3d_amiibo_generate_new_serial(const uint8_t *src)
 	for (int i = 1; i < 8; i++)
 	{
 		temp = rand() % 256;
-		UID = (uint8_t *)(src + i);
+		UID = (uint8_t *)(src + 0x1d4 + i);
 		*UID = temp;
 	}
 
 	/*Calculate BCC bytes*/
 	uint8_t BCC1, BCC2;
 	UID = src;
-	UID[3] = 0x88 ^ UID[0] ^ UID[1] ^ UID[2];
-	UID[8] = UID[4] ^ UID[5] ^ UID[6] ^ UID[7];
+	UID[3 + 0x1d4] = 0x88 ^ UID[0 + 0x1d4] ^ UID[1 + 0x1d4] ^ UID[2 + 0x1d4];
+	UID[0] = UID[4 + 0x1d4] ^ UID[5 + 0x1d4] ^ UID[6 + 0x1d4] ^ UID[7 + 0x1d4];
 }
 
 void nfc3d_amiibo_copy_app_data(const uint8_t * src, uint8_t * dst) {

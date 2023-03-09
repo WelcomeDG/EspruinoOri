@@ -5,6 +5,8 @@
 #include "bluetooth_utils.c"
 #include "amiibo.c"
 
+#define NTAG215_SIZE 540
+
 /*JSON{
   "type" : "class",
   "class" : "NTAG215",

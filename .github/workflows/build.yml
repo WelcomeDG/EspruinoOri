@@ -18,7 +18,7 @@ jobs:
     strategy:
       # devices to build for
       matrix:
-        board: [NRF52832DK]
+        board: [NRF52832DK,PUCKJS_MINIMAL,PUCKJS]
       # try and build for all devices even if one fails
       fail-fast: false 
     steps:

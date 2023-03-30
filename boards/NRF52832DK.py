@@ -74,14 +74,14 @@ chip = {
 devices = {
   'BTN1' : { 'pin' : 'D11', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
   'LED1' : { 'pin' : 'D12' }, # Pin negated in software 
-  'BTN5' : { 'pin' : 'D13', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
-  'BTN2' : { 'pin' : 'D14', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
-  'BTN3' : { 'pin' : 'D15', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
-  'BTN4' : { 'pin' : 'D16', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
-  'LED5' : { 'pin' : 'D17' }, # Pin negated in software
-  'LED2' : { 'pin' : 'D18' }, # Pin negated in software
-  'LED3' : { 'pin' : 'D19' }, # Pin negated in software
-  'LED4' : { 'pin' : 'D20' }, # Pin negated in software
+  #'BTN1' : { 'pin' : 'D13', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
+  #'BTN2' : { 'pin' : 'D14', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
+  #'BTN3' : { 'pin' : 'D15', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
+  #'BTN4' : { 'pin' : 'D16', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
+  #'LED1' : { 'pin' : 'D17' }, # Pin negated in software
+  #'LED2' : { 'pin' : 'D18' }, # Pin negated in software
+  #'LED3' : { 'pin' : 'D19' }, # Pin negated in software
+  #'LED4' : { 'pin' : 'D20' }, # Pin negated in software
   'RX_PIN_NUMBER' : { 'pin' : 'D8'},
   'TX_PIN_NUMBER' : { 'pin' : 'D6'},
   'CTS_PIN_NUMBER' : { 'pin' : 'D7'},
@@ -146,15 +146,14 @@ def get_pins():
   pinutils.findpin(pins, "PD31", True)["functions"]["ADC1_IN7"]=0;
   # Make buttons and LEDs negated
   pinutils.findpin(pins, "PD11", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD12", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD13", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD14", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD15", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD16", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD17", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD18", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD19", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD20", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD13", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD14", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD15", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD16", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD17", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD18", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD19", True)["functions"]["NEGATED"]=0;
+  #pinutils.findpin(pins, "PD20", True)["functions"]["NEGATED"]=0;
 
   # everything is non-5v tolerant
   for pin in pins:

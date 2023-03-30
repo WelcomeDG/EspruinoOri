@@ -146,7 +146,6 @@ def get_pins():
   pinutils.findpin(pins, "PD31", True)["functions"]["ADC1_IN7"]=0;
   # Make buttons and LEDs negated
   pinutils.findpin(pins, "PD11", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD12", True)["functions"]["NEGATED"]=0;
   #pinutils.findpin(pins, "PD13", True)["functions"]["NEGATED"]=0;
   #pinutils.findpin(pins, "PD14", True)["functions"]["NEGATED"]=0;
   #pinutils.findpin(pins, "PD15", True)["functions"]["NEGATED"]=0;
